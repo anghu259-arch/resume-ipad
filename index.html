@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>张三 · 作品集简历</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #151b23;
+      --text: #f6f8fb;
+      --muted: #98a2b3;
+      --accent: #4f8cff;
+      --line: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro SC", sans-serif;
+      overflow: hidden;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .app {
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .sidebar {
+      padding: 22px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .profile h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+    }
+
+    .profile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav button {
+      flex: 0 0 auto;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      font-size: 16px;
+      transition: 0.2s ease;
+    }
+
+    .nav button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 24px rgba(79, 140, 255, 0.25);
+    }
+
+    .main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      padding: 14px 18px 22px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .page h2 {
+      font-size: 26px;
+      margin: 6px 0 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      transition: transform 0.15s ease;
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+
+    .thumb {
+      height: 140px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #2b3a55, #4f8cff);
+    }
+
+    .v1 { background: linear-gradient(135deg, #1e3a8a, #38bdf8); }
+    .v2 { background: linear-gradient(135deg, #7c3aed, #ec4899); }
+    .v3 { background: linear-gradient(135deg, #065f46, #22c55e); }
+    .v4 { background: linear-gradient(135deg, #9a3412, #f59e0b); }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* iPad 横屏：左侧导航，右侧内容 */
+    @media (orientation: landscape) and (min-width: 900px) {
+      .app {
+        flex-direction: row;
+      }
+
+      .sidebar {
+        width: 280px;
+        border-right: 1px solid var(--line);
+        padding: 28px 20px;
+      }
+
+      .nav {
+        flex-direction: column;
+        overflow-x: visible;
+        overflow-y: auto;
+      }
+
+      .nav button {
+        width: 100%;
+        text-align: left;
+        border-radius: 14px;
+      }
+
+      .main {
+        padding-top: 20px;
+      }
+
+      .page {
+        padding: 22px 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="profile">
+        <h1>张三</h1>
+        <p>UI / 视觉设计 · 数据可视化 · 3年经验</p>
+      </div>
+
+      <nav class="nav" id="nav">
+        <button class="active" data-page="home">简历首页</button>
+        <button data-page="dataviz">数据可视化</button>
+        <button data-page="app">APP</button>
+        <button data-page="poster">海报</button>
+        <button data-page="logo">LOGO</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="page active" id="home">
+        <h2>简历概览</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="thumb v1"></div>
+            <h3>个人简介</h3>
+            <p>专注 UI 设计、视觉设计与数据可视化，负责过多个从 0 到 1 的项目。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v2"></div>
+            <h3>技能</h3>
+            <p>Figma / Sketch / PS / AI / AE / 数据可视化大屏 / 移动端设计。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v3"></div>
+            <h3>工作经历</h3>
+            <p>2022 - 至今，某科技公司 UI 设计师，负责 APP 与可视化项目。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v4"></div>
+            <h3>联系方式</h3>
+            <p>邮箱：hello@example.com<br />微信：designer_zhang</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="dataviz">
+        <h2>数据可视化</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="thumb v1"></div>
+            <h3>城市交通数据大屏</h3>
+            <p>实时路况、客流趋势、热力分布与预警系统。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v2"></div>
+            <h3>销售数据驾驶舱</h3>
+            <p>多维度 KPI、趋势图、区域对比与下钻分析。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v3"></div>
+            <h3>能源监控平台</h3>
+            <p>设备状态、能耗排行、异常报警与运维看板。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="app">
+        <h2>APP</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="thumb v2"></div>
+            <h3>健康管理 APP</h3>
+            <p>运动记录、睡眠分析、饮食建议与社交激励。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v1"></div>
+            <h3>智能家居 APP</h3>
+            <p>设备控制、场景联动、能耗统计与家庭成员管理。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v4"></div>
+            <h3>电商购物 APP</h3>
+            <p>首页推荐、商品详情、购物车与订单流程优化。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="poster">
+        <h2>海报</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="thumb v3"></div>
+            <h3>音乐节海报</h3>
+            <p>强视觉冲击、荧光色与动态构图。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v2"></div>
+            <h3>品牌活动海报</h3>
+            <p>极简排版、几何图形与品牌色延展。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v4"></div>
+            <h3>招聘海报</h3>
+            <p>信息层级清晰，适合社交媒体传播。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="logo">
+        <h2>LOGO</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="thumb v1"></div>
+            <h3>科技公司 LOGO</h3>
+            <p>字母组合、未来感与简洁识别。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v3"></div>
+            <h3>餐饮品牌 LOGO</h3>
+            <p>手绘感、亲和力与暖色系。</p>
+          </div>
+          <div class="card">
+            <div class="thumb v2"></div>
+            <h3>个人工作室 LOGO</h3>
+            <p>几何图形与个性化符号设计。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const buttons = [...nav.querySelectorAll('button[data-page]')];
+    const pages = [...document.querySelectorAll('.page')];
+
+    function go(pageId) {
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.page === pageId);
+      });
+
+      pages.forEach(page => {
+        page.classList.toggle('active', page.id === pageId);
+      });
+    }
+
+    nav.addEventListener('click', event => {
+      const btn = event.target.closest('button[data-page]');
+      if (!btn) return;
+      go(btn.dataset.page);
+    });
+  </script>
+</body>
+</html>
