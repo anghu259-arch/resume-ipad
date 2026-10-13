@@ -7,13 +7,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>胡昂 · 作品集简历</title>
   <style>
+    /* 修复了这里少一个点导致的BUG */
     .avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%; 
-  object-fit: cover;
-  margin-bottom: 12px;
-}
+      width: 130px;
+      height: 130px;
+      border-radius: 16px; /* 图2是带圆角的方形，如果喜欢全圆改成 50% */
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
     :root {
       --bg: #0b0f14;
       --panel: #151b23;
@@ -28,8 +30,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       height: 100%;
       background: var(--bg);
@@ -130,6 +131,83 @@
       margin: 6px 0 16px;
     }
 
+    /* ================= 图2风格的个人信息布局 ================= */
+    .resume-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .resume-header-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 15px;
+      margin-bottom: 40px;
+    }
+
+    .resume-header-title h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .resume-header-title span {
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+
+    .resume-content {
+      display: flex;
+      gap: 60px;
+    }
+
+    .resume-left {
+      flex: 0 0 280px;
+    }
+
+    .greeting {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .contact-list {
+      font-size: 16px;
+      line-height: 2.4;
+      color: var(--text);
+    }
+
+    .contact-list span {
+      display: inline-block;
+      width: 80px;
+      color: var(--muted);
+    }
+
+    .resume-right {
+      flex: 1;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .resume-right p {
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    .resume-right .en-text {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      opacity: 0.7;
+    }
+
+    /* ================= 作品展示的卡片布局（保持原样） ================= */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -204,6 +282,21 @@
         padding: 22px 28px;
       }
     }
+
+    /* 手机端适配：变成上下布局 */
+    @media (max-width: 768px) {
+      .resume-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .resume-header-title {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .greeting {
+        font-size: 28px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -212,11 +305,11 @@
       <div class="profile">
         <img src="avatar.jpg" alt="头像" class="avatar" />
         <h1>胡昂</h1>
-        <p>UI / 视觉设计 · 数据可视化 · 3年经验</p>
+        <p>UI / 视觉设计 · 数据可视化 · 7年经验</p>
       </div>
 
       <nav class="nav" id="nav">
-        <button class="active" data-page="home">简历首页</button>
+        <button class="active" data-page="home">个人简历</button>
         <button data-page="dataviz">数据可视化</button>
         <button data-page="app">APP</button>
         <button data-page="poster">海报</button>
@@ -225,32 +318,37 @@
     </aside>
 
     <main class="main">
+      <!-- 首页：完全按照图2风格的个人信息展示 -->
       <section class="page active" id="home">
-        <h2>简历概览</h2>
-        <div class="grid">
-          <div class="card">
-            <div class="thumb v1"></div>
-            <h3>个人简介</h3>
-            <p>专注 UI 设计、视觉设计与数据可视化，负责过多个从 0 到 1 的项目。</p>
+        <div class="resume-section">
+          <div class="resume-header-title">
+            <h2>个人信息</h2>
+            <span>PERSONAL INFORMATION</span>
           </div>
-          <div class="card">
-            <div class="thumb v2"></div>
-            <h3>技能</h3>
-            <p>Figma / Sketch / PS / AI / AE / 数据可视化大屏 / 移动端设计。</p>
-          </div>
-          <div class="card">
-            <div class="thumb v3"></div>
-            <h3>工作经历</h3>
-            <p>2022 - 至今，某科技公司 UI 设计师，负责 APP 与可视化项目。</p>
-          </div>
-          <div class="card">
-            <div class="thumb v4"></div>
-            <h3>联系方式</h3>
-            <p>邮箱：hello@example.com<br />微信：designer_zhang</p>
+          
+          <div class="resume-content">
+            <!-- 左侧：头像、问候语、联系方式 -->
+            <div class="resume-left">
+              <div class="greeting">嗨，您好<br>我是胡昂</div>
+              <div class="contact-list">
+                <div><span>电 话：</span>183 5194 9443</div>
+                <div><span>邮 箱：</span>790421030@qq.com</div>
+                <div><span>工作经验：</span>7年</div>
+                <div><span>学 历：</span>专科</div>
+              </div>
+            </div>
+
+            <!-- 右侧：个人简介（中英文） -->
+            <div class="resume-right">
+              <p>具备扎实的 UI 设计功底、平面设计能力与良好审美能力，熟悉数字可视化大屏、移动端、WEB 端及后台产品全流程设计；精通品牌宣传物料、茶饮门店海报 KV、电商首页 / 详情页 / 活动广告等平面及电商视觉设计。注重设计规范与视觉统一性，善于沟通协作，能高效对接产品、前端完成设计落地。工作认真负责，学习能力强，持续关注设计行业趋势，兼顾品牌视觉标准化与页面营销转化，持续优化设计输出与用户体验。</p>
+              
+              <p class="en-text">POSSESSING SOLID UI DESIGN SKILLS, GRAPHIC DESIGN ABILITIES, AND GOOD AESTHETIC JUDGMENT, FAMILIAR WITH THE FULL PROCESS DESIGN OF DIGITAL VISUALIZATION SCREENS, MOBILE TERMINALS, WEB TERMINALS, AND BACKEND PRODUCTS; PROFICIENT IN GRAPHIC AND E-COMMERCE VISUAL DESIGN FOR BRAND PROMOTIONAL MATERIALS, TEA SHOP POSTERS KV, E-COMMERCE HOMEPAGE/DETAIL PAGE/EVENT ADVERTISEMENTS, ETC. FOCUSING ON DESIGN STANDARDS AND VISUAL CONSISTENCY, GOOD AT COMMUNICATION AND COLLABORATION, ABLE TO EFFICIENTLY CONNECT WITH PRODUCT AND FRONT-END TEAMS TO COMPLETE DESIGN IMPLEMENTATION. WORK CONSCIENTIOUSLY AND RESPONSIBLY, HAVE STRONG LEARNING ABILITY, CONTINUOUSLY PAY ATTENTION TO DESIGN INDUSTRY TRENDS, BALANCE BRAND VISUAL STANDARDIZATION AND PAGE MARKETING CONVERSION, AND CONTINUOUSLY OPTIMIZE DESIGN OUTPUT AND USER EXPERIENCE.</p>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- 以下为作品展示页面，保持卡片式不变 -->
       <section class="page" id="dataviz">
         <h2>数据可视化</h2>
         <div class="grid">
