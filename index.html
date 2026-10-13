@@ -7,13 +7,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>胡昂 · 作品集简历</title>
   <style>
-    .avatar {
-  width: 80px;          /* 头像宽度，可改为 100px */
-  height: 80px;         /* 头像高度，必须和宽度一致 */
-  border-radius: 50%;   /* 这个属性就是把它变圆 */
-  object-fit: cover;    /* 保证图片不被拉伸变形 */
-  margin-bottom: 12px;  /* 和下方名字隔开一点距离 */
-  border: 2px solid rgba(255, 255, 255, 0.2); /* 可选：加个半透明边框 */
+    ..avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-bottom: 12px;
 }
     :root {
       --bg: #0b0f14;
@@ -211,7 +210,7 @@
   <div class="app">
     <aside class="sidebar">
       <div class="profile">
-        <img class="avatar" src="avatar.jpg" alt="头像" />
+        <img src="avatar.jpg" alt="头像" class="avatar" />
         <h1>胡昂</h1>
         <p>UI / 视觉设计 · 数据可视化 · 3年经验</p>
       </div>
